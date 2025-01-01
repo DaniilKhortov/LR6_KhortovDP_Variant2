@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <script>
+        function updateCounter() {
+            fetch('/counter')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('counter').innerText = "Current counter value: " + data;
+                });
+        }
+
+        function updateRuntimeMessage() {
+            fetch('/runtime-message')
+                .then(response => response.text())
+                .then(data => {
+                    if (data) {
+                        document.getElementById('logTime').innerText = data;
+                    }
+                });
+        }
+
+        setInterval(updateCounter, 1000);
+        setInterval(updateRuntimeMessage, 1000);
+
+        window.onload = () => {
+            updateCounter();
+            updateRuntimeMessage();
+        };
+    </script>
+</head>
+<body>
+<h1 id="counter">Loading...</h1>
+<h2 id="logTime">Waiting for runtime message...</h2>
+</body>
+</html>
